@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'FMTwitterKit' target in the 'FMTwitterKit' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
+
