@@ -31,7 +31,7 @@
 
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode
 	{
-	if(self = [super init])
+	if((self = [super init]))
 		{
 		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 		

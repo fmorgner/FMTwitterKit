@@ -32,7 +32,7 @@
 
 - (id) initWithXMLNode:(NSXMLNode *)aXMLNode
 	{
-	if(self = [super init])
+	if((self = [super init]))
 		{
 		xmlNode = [aXMLNode retain];
 

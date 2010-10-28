@@ -38,7 +38,7 @@ static FMTweetFactory* sharedInstance = nil;
 	{
 	if(!sharedInstance)
 		{
-		if(self = [super init])
+		if((self = [super init]))
 			{
 			
 			}
