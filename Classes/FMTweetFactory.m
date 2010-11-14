@@ -51,7 +51,7 @@ static FMTweetFactory* sharedInstance = nil;
 	return self;
 	}
 	
-- (NSArray*) tweetsFromXML:(NSXMLDocument *)aXMLDocument
+- (NSArray*) tweetsFromXMLDocument:(NSXMLDocument *)aXMLDocument
 	{
 	NSMutableArray* tweetsArray = nil;	// The array containing the processed tweets.
 	NSArray* statusNodesArray = nil;		// The array containing the NSXMLNodes representing the fetched statuses
@@ -79,5 +79,7 @@ static FMTweetFactory* sharedInstance = nil;
 	// Return the array of processed tweets
 	return tweetsArray;
 	}
+
+
 
 @end

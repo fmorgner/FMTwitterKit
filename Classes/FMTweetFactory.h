@@ -28,6 +28,6 @@
 
 + (id)sharedTweetFactory;
 
-- (NSArray*) tweetsFromXML:(NSXMLDocument*)aXMLDocument;
+- (NSArray*) tweetsFromXMLDocument:(NSXMLDocument*)aXMLDocument;
 
 @end
