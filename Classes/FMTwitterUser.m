@@ -29,6 +29,9 @@
 @synthesize uniqueID, followersCount, friendsCount, favouritesCount, statusesCount;
 @synthesize xmlNode;
 
+#pragma mark -
+#pragma mark Allocation/Deallocation: 
+
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode
 	{
 	if((self = [super init]))
@@ -85,6 +88,28 @@
 	[joinDate release];
 	[timezone release];
 	[super dealloc];
+	}
+
+#pragma mark -
+#pragma mark Convenience accessors
+
+- (NSImage*) profileImage
+	{
+	NSURLRequest* fetchRequest = [NSURLRequest requestWithURL:self.profileImageURL];
+	NSURLResponse* fetchResponse = nil;
+	NSError* fetchError = nil;
+	
+	NSData* fetchedData = [NSURLConnection sendSynchronousRequest:fetchRequest returningResponse:&fetchResponse error:&fetchError];
+	
+	if(fetchError != nil)
+		{
+		NSString* exceptionReason = [NSString stringWithFormat:@"The connection returned the following error: %@", [fetchError localizedDescription]];
+		NSException* exception = [NSException exceptionWithName:@"FMTwitterKitProfileImageDownloadException" reason:exceptionReason userInfo:nil];
+		@throw exception;
+		return nil;
+		}
+	
+	return [[[NSImage alloc] initWithData:fetchedData] autorelease];
 	}
 
 @end

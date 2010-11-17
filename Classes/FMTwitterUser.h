@@ -49,6 +49,10 @@
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
 + (FMTwitterUser*) userWithXMLNode:(NSXMLNode*)aXMLNode;
 
+- (NSImage*) profileImage;
+
+
+
 @property (nonatomic, retain) NSString* name, *screenName, *location, *description;
 @property (nonatomic, retain) NSURL* profileImageURL, *url;
 @property (nonatomic, retain) NSDate* joinDate;
