@@ -1,7 +1,9 @@
 ReadMe
 ======
+Felix Morgner <felix.morgner@gmail.com>
 :Author Initials: FHM
 :website: http://www.felixmorgner.ch
+:numbered:
 
 FMTwitterKit provides you with simple ways to work with tweets and Twitter users. In the next few lines I'd like to show you the basic concepts of FMTwitterKit and how to use it.
 
