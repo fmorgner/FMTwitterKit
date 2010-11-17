@@ -1,0 +1,36 @@
+ReadMe
+======
+:Author Initials: FHM
+:website: http://www.felixmorgner.ch
+
+FMTwitterKit provides you with simple ways to work with tweets and Twitter users. In the next few lines I'd like to show you the basic concepts of FMTwitterKit and how to use it.
+
+How the data flows into FMTwitterKit
+------------------------------------
+
+You are responsible for the downloading of the raw XML data from the twitter.com servers. You could use your own URLs or do it the recommended way and use the integrated URL constants. This way you are always up-to-date with the latest changes done by twitter.
+
+What you get back
+-----------------
+
+After you downloaded the XML data from the twitter.com servers you will want to give to the 'tweetsFromXMLDocument:' method on 'FMTweetFactory'. This method returns you an array of 'FMTweet's.
+
+Why FMTweet and not a simple dictionary
+---------------------------------------
+
+"Tweets _are_ tweets _stay_ tweets forever" - Felix Morgner on tweets
+
+First, FMTweet represents a tweet whereas a dictionary represents a dictionary. In Objective-C we live in an object-oriented world. This is one of the reasons why a tweet is represented as a tweet.
+
+Another reason is that FMTweet can provide you with some convenience methods. For example: Twitter only provides you with the hex value for the users profile text color and thats where FMTweet comes in handy. You can ask a FMTweet for a NSColor representation of the users profile text color.
+
+About authorization and authentication
+--------------------------------------
+
+Once upon a time twitter used 'HTTP Basic Auth' for authenticating twitter users. In this time gaining access to the 'friends- timeline' of a user, or posting to the 'user timeline' was pretty easy to accomplish. Since then this has totally changed. Now twitter uses OAuth, an open authentication standard, as authentication protocol. In OAuth not users but applications get authorized and authenticated. This is the reason why FMTwitterKit doesn't do authentication for you.
+
+How to get a tweet to twitter
+-----------------------------
+
+To post a tweet to twitter, you need to supply twitter with either a JSON or XML representation of the tweet. FMTwitterKit uses XML for its whole 
+workflow and therefore provides you with XML data to send back to the twitter servers. As with the downloading of tweet data, you are responsible for sending back the data to twitter.
