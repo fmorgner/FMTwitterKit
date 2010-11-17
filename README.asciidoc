@@ -34,5 +34,4 @@ Once upon a time twitter used 'HTTP Basic Auth' for authenticating twitter users
 How to get a tweet to twitter
 -----------------------------
 
-To post a tweet to twitter, you need to supply twitter with either a JSON or XML representation of the tweet. FMTwitterKit uses XML for its whole 
-workflow and therefore provides you with XML data to send back to the twitter servers. As with the downloading of tweet data, you are responsible for sending back the data to twitter.
+To post a tweet to twitter, you need to supply twitter with a POST request including at least the status text in the HTTP body. Twitter then replies to you with a JSON or XML representation. Since FMTwitterKit uses XML for it's whole workflow you should use the XML returning URL or - much better - use the integrated URL constant.
