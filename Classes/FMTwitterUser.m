@@ -17,7 +17,7 @@
 //
 
 #import "FMTwitterUser.h"
-
+#import "FMTwitterUserProfileImageDownloadDelegate.h"
 
 @implementation FMTwitterUser
 
@@ -91,8 +91,9 @@
 
 - (void) fetchProfileImage
 	{
-	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:self.profileImageURL] delegate:self];
+	FMTwitterUserProfileImageDownloadDelegate* delegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
+	
+	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:self.profileImageURL] delegate:delegate];
 	}
-
 @end
 
