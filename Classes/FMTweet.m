@@ -34,22 +34,22 @@
 	{
 	if((self = [super init]))
 		{
-		xmlNode = [aXMLNode retain];
+		[self setXmlNode:aXMLNode];
 
-		text            = [[[[aXMLNode objectsForXQuery:@"for $p in text return $p" error:nil] objectAtIndex:0] stringValue] retain];
-		source          = [[[[aXMLNode objectsForXQuery:@"for $p in source return $p" error:nil] objectAtIndex:0] stringValue] retain];
-		replyScreenName = [[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_screen_name return $p" error:nil] objectAtIndex:0] stringValue] retain];
+		[self setText:						[[[aXMLNode objectsForXQuery:@"for $p in text return $p" error:nil] objectAtIndex:0] stringValue]];
+		[self setSource:					[[[aXMLNode objectsForXQuery:@"for $p in source return $p" error:nil] objectAtIndex:0] stringValue]];
+		[self setReplyScreenName:	[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_screen_name return $p" error:nil] objectAtIndex:0] stringValue]];
 
-		user            = [[FMTwitterUser userWithXMLNode:[[aXMLNode nodesForXPath:@"user" error:nil] objectAtIndex:0]] retain];
+		[self setUser: [FMTwitterUser userWithXMLNode:[[aXMLNode nodesForXPath:@"user" error:nil] objectAtIndex:0]]];
 
-		creationDate    = [[NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:nil] objectAtIndex:0] stringValue]] retain];
+		[self setCreationDate: [NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:nil] objectAtIndex:0] stringValue]]];
 
-		uniqueID        = [[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] intValue];		
-		replyStatusID   = [[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_status_id return $p" error:nil] objectAtIndex:0] stringValue]intValue];
-		replyUserID     = [[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_user_id return $p" error:nil] objectAtIndex:0] stringValue]intValue];
+		[self setUniqueID:			[[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];		
+		[self setReplyStatusID:	[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_status_id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];
+		[self setReplyUserID:		[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_user_id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];
 
-		isTruncated     = [[[[aXMLNode objectsForXQuery:@"for $p in truncated return $p" error:nil] objectAtIndex:0] stringValue] boolValue];
-		isFavourite     = [[[[aXMLNode objectsForXQuery:@"for $p in favorited return $p" error:nil] objectAtIndex:0] stringValue] boolValue];
+		[self setIsTruncated:	[[[[aXMLNode objectsForXQuery:@"for $p in truncated return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];
+		[self setIsFavourite:	[[[[aXMLNode objectsForXQuery:@"for $p in favorited return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];
 		}
 
 	return self;

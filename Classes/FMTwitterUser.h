@@ -49,7 +49,7 @@
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
 + (FMTwitterUser*) userWithXMLNode:(NSXMLNode*)aXMLNode;
 
-- (NSImage*) profileImage;
+- (void) fetchProfileImage;
 
 
 
@@ -57,8 +57,9 @@
 @property (nonatomic, retain) NSURL* profileImageURL, *url;
 @property (nonatomic, retain) NSDate* joinDate;
 @property (nonatomic, retain) NSTimeZone* timezone;
+@property (nonatomic, retain) NSXMLNode* xmlNode;
+
 @property (assign) BOOL isProtected, isFollowing, isVerified;
 @property (assign) NSInteger uniqueID, followersCount, friendsCount, favouritesCount, statusesCount;
-@property (nonatomic, retain) NSXMLNode* xmlNode;
 
 @end

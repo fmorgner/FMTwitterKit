@@ -36,31 +36,27 @@
 	{
 	if((self = [super init]))
 		{
-		NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
+		[self setName:				[[[aXMLNode objectsForXQuery:@"for $p in name return $p" error:nil] objectAtIndex:0] stringValue]];
+		[self setScreenName:	[[[aXMLNode objectsForXQuery:@"for $p in screen_name return $p" error:nil] objectAtIndex:0] stringValue]];
+		[self setLocation:		[[[aXMLNode objectsForXQuery:@"for $p in location return $p" error:nil] objectAtIndex:0] stringValue]];
+		[self setDescription:	[[[aXMLNode objectsForXQuery:@"for $p in description return $p" error:nil] objectAtIndex:0] stringValue]];
 		
-		name						= [[[[aXMLNode objectsForXQuery:@"for $p in name return $p" error:nil] objectAtIndex:0] stringValue] copy];
-		screenName			= [[[[aXMLNode objectsForXQuery:@"for $p in screen_name return $p" error:nil] objectAtIndex:0] stringValue] copy];
-		location				= [[[[aXMLNode objectsForXQuery:@"for $p in location return $p" error:nil] objectAtIndex:0] stringValue] copy];
-		description			= [[[[aXMLNode objectsForXQuery:@"for $p in description return $p" error:nil] objectAtIndex:0] stringValue] copy];
-		
-		profileImageURL = [[NSURL URLWithString:[[[aXMLNode objectsForXQuery:@"for $p in profile_image_url return $p" error:nil] objectAtIndex:0] stringValue]] copy];
-		url							= [[NSURL URLWithString:[[[aXMLNode objectsForXQuery:@"for $p in url return $p" error:nil] objectAtIndex:0] stringValue]] copy];
+		[self setProfileImageURL: [NSURL URLWithString:[[[aXMLNode objectsForXQuery:@"for $p in profile_image_url return $p" error:nil] objectAtIndex:0] stringValue]]];
+		[self setUrl:							[NSURL URLWithString:[[[aXMLNode objectsForXQuery:@"for $p in url return $p" error:nil] objectAtIndex:0] stringValue]]];
 
-		joinDate				= [[NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:nil] objectAtIndex:0] stringValue]] copy];
+		[self setJoinDate: [NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:nil] objectAtIndex:0] stringValue]]];
 		
-		timezone				= [[NSTimeZone timeZoneForSecondsFromGMT:[[[[aXMLNode objectsForXQuery:@"for $p in utc_offset return $p" error:nil] objectAtIndex:0] stringValue] intValue]] copy];
+		[self setTimezone: [NSTimeZone timeZoneForSecondsFromGMT:[[[[aXMLNode objectsForXQuery:@"for $p in utc_offset return $p" error:nil] objectAtIndex:0] stringValue] intValue]]];
 		
-		isProtected			= [[[[aXMLNode objectsForXQuery:@"for $p in protected return $p" error:nil] objectAtIndex:0] stringValue] boolValue];
-		isFollowing			= [[[[aXMLNode objectsForXQuery:@"for $p in following return $p" error:nil] objectAtIndex:0] stringValue] boolValue];		
-		isVerified			= [[[[aXMLNode objectsForXQuery:@"for $p in verified return $p" error:nil] objectAtIndex:0] stringValue] boolValue];		
+		[self setIsProtected:	[[[[aXMLNode objectsForXQuery:@"for $p in protected return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];
+		[self setIsFollowing:	[[[[aXMLNode objectsForXQuery:@"for $p in following return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];		
+		[self setIsVerified:	[[[[aXMLNode objectsForXQuery:@"for $p in verified return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];		
 
-		uniqueID				= [[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] intValue];		
-		followersCount	= [[[[aXMLNode objectsForXQuery:@"for $p in followers_count return $p" error:nil] objectAtIndex:0] stringValue] intValue];		
-		friendsCount		= [[[[aXMLNode objectsForXQuery:@"for $p in friends_count return $p" error:nil] objectAtIndex:0] stringValue] intValue];		
-		favouritesCount	= [[[[aXMLNode objectsForXQuery:@"for $p in favourites_count return $p" error:nil] objectAtIndex:0] stringValue] intValue];		
-		statusesCount		= [[[[aXMLNode objectsForXQuery:@"for $p in statuses_count return $p" error:nil] objectAtIndex:0] stringValue] intValue];
-		
-		[pool drain];
+		[self setUniqueID:				[[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];		
+		[self setFollowersCount:	[[[[aXMLNode objectsForXQuery:@"for $p in followers_count return $p" error:nil] objectAtIndex:0] stringValue] intValue]];		
+		[self setFriendsCount:		[[[[aXMLNode objectsForXQuery:@"for $p in friends_count return $p" error:nil] objectAtIndex:0] stringValue] intValue]];		
+		[self setFavouritesCount:	[[[[aXMLNode objectsForXQuery:@"for $p in favourites_count return $p" error:nil] objectAtIndex:0] stringValue] intValue]];		
+		[self setStatusesCount:		[[[[aXMLNode objectsForXQuery:@"for $p in statuses_count return $p" error:nil] objectAtIndex:0] stringValue] intValue]];
 		}
 		
 	return self;
@@ -93,23 +89,9 @@
 #pragma mark -
 #pragma mark Convenience accessors
 
-- (NSImage*) profileImage
+- (void) fetchProfileImage
 	{
-	NSURLRequest* fetchRequest = [NSURLRequest requestWithURL:self.profileImageURL];
-	NSURLResponse* fetchResponse = nil;
-	NSError* fetchError = nil;
-	
-	NSData* fetchedData = [NSURLConnection sendSynchronousRequest:fetchRequest returningResponse:&fetchResponse error:&fetchError];
-	
-	if(fetchError != nil)
-		{
-		NSString* exceptionReason = [NSString stringWithFormat:@"The connection returned the following error: %@", [fetchError localizedDescription]];
-		NSException* exception = [NSException exceptionWithName:@"FMTwitterKitProfileImageDownloadException" reason:exceptionReason userInfo:nil];
-		@throw exception;
-		return nil;
-		}
-	
-	return [[[NSImage alloc] initWithData:fetchedData] autorelease];
+	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:self.profileImageURL] delegate:self];
 	}
 
 @end
