@@ -17,7 +17,7 @@
 	{
 	if ((self = [super init]))
 		{
-		self.receivedData = [[NSMutableData alloc] init];
+		self.receivedData = [[[NSMutableData alloc] init] autorelease];
     }
     
 	return self;
@@ -44,6 +44,7 @@
 	NSNotification* notification = [NSNotification notificationWithName:@"FMTwitterKitProfileImageDownloadFinishedNotification" object:self userInfo:userInfoDictionary];
 	
 	[notificationCenter postNotification:notification];
+	[receivedData release];
 	}
 	
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
@@ -51,6 +52,6 @@
 	NSException* exception = [NSException exceptionWithName:@"FMTwitterKitProfileImageDownloadConnectionException"
 																				reason:[error localizedFailureReason]
 																				userInfo:nil];
-	@throw exception;
+	[exception raise];
 	}
 @end

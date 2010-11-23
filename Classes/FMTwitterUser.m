@@ -87,13 +87,34 @@
 	}
 
 #pragma mark -
-#pragma mark Convenience accessors
+#pragma mark Convenience accessors:
 
-- (void) fetchProfileImage
+- (void) fetchProfileImageOfSize:(FMProfileImageSize)profileImageSize
 	{
-	FMTwitterUserProfileImageDownloadDelegate* delegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
+	NSMutableString* profileImageURLString = [NSMutableString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.xml?size=", self.screenName];
+		
+	switch (profileImageSize)
+		{
+		case FMProfileImageSizeSmall:
+			[profileImageURLString appendString:@"small"];
+			break;
+		case FMProfileImageSizeNormal:
+			[profileImageURLString appendString:@"normal"];
+			break;
+		case FMProfileImageSizeBigger:
+			[profileImageURLString appendString:@"bigger	"];
+			break;
+		default:
+			NSLog(@"Invalid parameter '%i' supplied for 'profileImageSize'. Defaulting to normal size.", (int)profileImageSize);
+			break;
+		}
 	
-	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:self.profileImageURL] delegate:delegate];
+	NSURL* selectedProfileImageURL = [NSURL URLWithString:profileImageURLString];
+	
+	FMTwitterUserProfileImageDownloadDelegate* delegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
+	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:delegate];
+	[delegate release];
 	}
+
 @end
 

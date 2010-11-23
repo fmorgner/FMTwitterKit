@@ -18,6 +18,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+typedef enum
+	{
+	FMProfileImageSizeNormal = 0,
+	FMProfileImageSizeSmall	= 1,
+	FMProfileImageSizeBigger = 2,
+	FMProfileImageSizeFull = 3
+	} FMProfileImageSize;
 
 @interface FMTwitterUser : NSObject <NSCopying>
 	{
@@ -49,7 +56,7 @@
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
 + (FMTwitterUser*) userWithXMLNode:(NSXMLNode*)aXMLNode;
 
-- (void) fetchProfileImage;
+- (void) fetchProfileImageOfSize:(FMProfileImageSize)profileImageSize;
 
 
 
