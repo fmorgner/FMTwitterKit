@@ -49,8 +49,6 @@ typedef enum
 	NSInteger		friendsCount;
 	NSInteger		favouritesCount;
 	NSInteger		statusesCount;	
-	
-	NSXMLNode*	xmlNode;
 	}
 
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;

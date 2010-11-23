@@ -34,9 +34,8 @@
 	NSInteger replyUserID;			// The identification number of the user to which this tweet was send as a reply
 	
 	BOOL isTruncated;						// Is this tweet truncated?
-	BOOL isFavourite;						// IS this tweet favourited?
+	BOOL isFavourite;						// Is this tweet favourited?
 	
-	NSXMLNode* xmlNode;					// The NSXMLNode that was supplied for initialisation. Needed for copyWithZone:(NSZone)zone
 	}
 
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;

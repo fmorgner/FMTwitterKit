@@ -69,7 +69,27 @@
 
 - (id)copyWithZone:(NSZone *)zone
 	{
-	FMTwitterUser *copy = [[[self class] allocWithZone: zone] initWithXMLNode:xmlNode];
+	FMTwitterUser *copy = [[FMTwitterUser allocWithZone: zone] init];
+
+	copy.name						 = [[self.name copy] autorelease];
+	copy.screenName			 = [[self.screenName copy] autorelease];
+	copy.location				 = [[self.location copy] autorelease];
+	copy.description		 = [[self.description copy] autorelease];
+	copy.profileImageURL = [[self.profileImageURL copy] autorelease];
+	copy.url						 = [[self.url copy] autorelease];
+	copy.joinDate				 = [[self.joinDate copy] autorelease];
+	copy.timezone				 = [[self.timezone copy] autorelease];
+
+	
+	copy.isProtected		 = self.isProtected;
+	copy.isFollowing		 = self.isFollowing;
+	copy.isVerified			 = self.isVerified;
+	copy.uniqueID				 = self.uniqueID;
+	copy.followersCount  = self.followersCount;
+	copy.friendsCount		 = self.friendsCount;
+	copy.favouritesCount = self.favouritesCount;
+	copy.statusesCount	 = self.statusesCount;
+
 	return copy;
 	}
 

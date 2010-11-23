@@ -34,8 +34,6 @@
 	{
 	if((self = [super init]))
 		{
-		[self setXmlNode:aXMLNode];
-
 		[self setText:						[[[aXMLNode objectsForXQuery:@"for $p in text return $p" error:nil] objectAtIndex:0] stringValue]];
 		[self setSource:					[[[aXMLNode objectsForXQuery:@"for $p in source return $p" error:nil] objectAtIndex:0] stringValue]];
 		[self setReplyScreenName:	[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_screen_name return $p" error:nil] objectAtIndex:0] stringValue]];
@@ -67,7 +65,6 @@
 	[replyScreenName release];
 	[creationDate release];
 	[user release];
-	[xmlNode release];
 	[super dealloc];
 	}
 
@@ -76,7 +73,20 @@
 
 - (id)copyWithZone:(NSZone *)zone
 	{
-	FMTweet *copy = [[[self class] allocWithZone: zone] initWithXMLNode:xmlNode];
+	FMTweet *copy = [[FMTweet allocWithZone: zone] init];
+	
+	copy.text						 = [[self.text copy] autorelease];
+	copy.source					 = [[self.source copy] autorelease];
+	copy.replyScreenName = [[self.replyScreenName copy] autorelease];
+	copy.user						 = [[self.user copy] autorelease];
+	copy.creationDate		 = [[self.creationDate copy] autorelease];
+
+	copy.uniqueID			 = self.uniqueID;
+	copy.replyStatusID = self.replyStatusID;
+	copy.replyUserID	 = self.replyUserID;
+	copy.isTruncated	 = self.isTruncated;
+	copy.isFavourite	 = self.isFavourite;
+
 	return copy;
 	}
 
@@ -127,7 +137,7 @@
 		NSRange sourceStringRange = NSMakeRange(firstTagRange.length, secondTagRange.location - firstTagRange.length);
 		newSourceString = [[NSString alloc] initWithString:[*aString substringWithRange:sourceStringRange]];
 		
-		[*aString release];
+		[*aString release];			
 		*aString = newSourceString;
 
 		if(aURL == nil)
@@ -162,8 +172,9 @@
 		{
 		[source release];
 		}
-	source = [aString retain];
-	
+
+	source = [aString retain];	
+
 	[self stripLinkFromString:&source intoURL:nil];
 	}
 
