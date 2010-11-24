@@ -107,12 +107,14 @@
 	}
 
 #pragma mark -
-#pragma mark Convenience accessors:
+#pragma mark Utility methods:
 
-- (void) fetchProfileImageOfSize:(FMProfileImageSize)profileImageSize
+- (void) fetchProfileImageOfSize:(FMTwitterKitProfileImageSize)profileImageSize
 	{
 	NSMutableString* profileImageURLString = [NSMutableString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.xml?size=", self.screenName];
-		
+	
+	selectedProfileImageSize = profileImageSize;
+	
 	switch (profileImageSize)
 		{
 		case FMProfileImageSizeSmall:
@@ -131,10 +133,37 @@
 	
 	NSURL* selectedProfileImageURL = [NSURL URLWithString:profileImageURLString];
 	
-	FMTwitterUserProfileImageDownloadDelegate* delegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
-	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:delegate];
-	[delegate release];
+	FMTwitterUserProfileImageDownloadDelegate* downloadDelegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
+	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:downloadDelegate];
+	[downloadDelegate release];
+	}
+
+#pragma mark -
+#pragma mark Delegation and notification processing:
+
+- (void) didLoadProfileImage:(NSImage*)profileImage ofSize:(FMTwitterKitProfileImageSize)size
+	{
+	if([delegate respondsToSelector:@selector(twitterUser: didLoadProfileImage: ofSize:)])
+		{
+		[delegate twitterUser:self didLoadProfileImage:profileImage ofSize:size];
+		}
+	else
+		{
+		NSException* delegateException = [NSException exceptionWithName:@"FMTwitterKitUserProfileImageDelegateException"
+																														 reason:@"The provided delegate does not respond to the 'twitterUser: didLoadProfileImage: ofSize:' selector"
+																													 userInfo:nil];
+		[delegateException raise];
+		}
+	}
+
+- (void) processNotification:(NSNotification *)aNotification
+	{
+	if([aNotification.name isEqualToString:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification]])
+		{
+		NSData* receivedData = [[aNotification userInfo] valueForKey:[NSString stringWithUTF8String:kFMTwitterKitProfileImageData]];
+		NSImage* profileImage = [[NSImage alloc] initWithData:receivedData];
+		[self didLoadProfileImage:profileImage ofSize:selectedProfileImageSize];
+		}
 	}
 
 @end
-
