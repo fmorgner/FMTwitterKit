@@ -60,7 +60,6 @@
 @property (nonatomic, retain) NSURL* profileImageURL, *url;
 @property (nonatomic, retain) NSDate* joinDate;
 @property (nonatomic, retain) NSTimeZone* timezone;
-@property (nonatomic, retain) NSXMLNode* xmlNode;
 
 @property (assign) BOOL isProtected, isFollowing, isVerified;
 @property (assign) NSUInteger uniqueID, followersCount, friendsCount, favouritesCount, statusesCount;

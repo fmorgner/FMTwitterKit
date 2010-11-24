@@ -25,7 +25,6 @@
 @synthesize creationDate;
 @synthesize uniqueID, replyStatusID, replyUserID;
 @synthesize isTruncated, isFavourite;
-@synthesize xmlNode;
 
 #pragma mark -
 #pragma mark Allocation/Deallocation:

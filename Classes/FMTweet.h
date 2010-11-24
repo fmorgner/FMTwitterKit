@@ -50,6 +50,5 @@
 @property (nonatomic, retain) NSDate* creationDate;
 @property (assign) NSUInteger uniqueID, replyStatusID, replyUserID;
 @property (assign) BOOL isTruncated, isFavourite;
-@property (nonatomic, retain) NSXMLNode* xmlNode;
 
 @end

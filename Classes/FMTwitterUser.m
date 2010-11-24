@@ -27,7 +27,6 @@
 @synthesize timezone;
 @synthesize isProtected, isFollowing, isVerified;
 @synthesize uniqueID, followersCount, friendsCount, favouritesCount, statusesCount;
-@synthesize xmlNode;
 
 #pragma mark -
 #pragma mark Allocation/Deallocation: 
