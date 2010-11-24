@@ -42,9 +42,9 @@
 
 		[self setCreationDate: [NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:nil] objectAtIndex:0] stringValue]]];
 
-		[self setUniqueID:			[[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];		
-		[self setReplyStatusID:	[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_status_id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];
-		[self setReplyUserID:		[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_user_id return $p" error:nil] objectAtIndex:0] stringValue] intValue]];
+		[self setUniqueID:			[[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] longLongValue]];		
+		[self setReplyStatusID:	[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_status_id return $p" error:nil] objectAtIndex:0] stringValue] longLongValue]];
+		[self setReplyUserID:		[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_user_id return $p" error:nil] objectAtIndex:0] stringValue] longLongValue]];
 
 		[self setIsTruncated:	[[[[aXMLNode objectsForXQuery:@"for $p in truncated return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];
 		[self setIsFavourite:	[[[[aXMLNode objectsForXQuery:@"for $p in favorited return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];

@@ -44,11 +44,11 @@ typedef enum
 	BOOL				isFollowing;
 	BOOL				isVerified;
 	
-	NSInteger		uniqueID;
-	NSInteger		followersCount;
-	NSInteger		friendsCount;
-	NSInteger		favouritesCount;
-	NSInteger		statusesCount;	
+	NSUInteger		uniqueID;
+	NSUInteger		followersCount;
+	NSUInteger		friendsCount;
+	NSUInteger		favouritesCount;
+	NSUInteger		statusesCount;	
 	}
 
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
@@ -65,6 +65,6 @@ typedef enum
 @property (nonatomic, retain) NSXMLNode* xmlNode;
 
 @property (assign) BOOL isProtected, isFollowing, isVerified;
-@property (assign) NSInteger uniqueID, followersCount, friendsCount, favouritesCount, statusesCount;
+@property (assign) NSUInteger uniqueID, followersCount, friendsCount, favouritesCount, statusesCount;
 
 @end

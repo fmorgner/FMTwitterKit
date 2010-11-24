@@ -29,9 +29,9 @@
 
 	NSDate* creationDate;				// The date on which this tweet was posted
 	
-	NSInteger uniqueID;					// The tweets unique identification number (also known as status number)
-	NSInteger replyStatusID;		// The identification number of the tweet to which this tweet was send as a reply
-	NSInteger replyUserID;			// The identification number of the user to which this tweet was send as a reply
+	NSUInteger uniqueID;					// The tweets unique identification number (also known as status number)
+	NSUInteger replyStatusID;		// The identification number of the tweet to which this tweet was send as a reply
+	NSUInteger replyUserID;			// The identification number of the user to which this tweet was send as a reply
 	
 	BOOL isTruncated;						// Is this tweet truncated?
 	BOOL isFavourite;						// Is this tweet favourited?
@@ -48,7 +48,7 @@
 @property (nonatomic, retain) NSString* text, *source, *replyScreenName;
 @property (nonatomic, retain)	FMTwitterUser* user;
 @property (nonatomic, retain) NSDate* creationDate;
-@property (assign) NSInteger uniqueID, replyStatusID, replyUserID;
+@property (assign) NSUInteger uniqueID, replyStatusID, replyUserID;
 @property (assign) BOOL isTruncated, isFavourite;
 @property (nonatomic, retain) NSXMLNode* xmlNode;
 
