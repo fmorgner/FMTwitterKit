@@ -1,5 +1,5 @@
 //
-//  Tweet.m
+//  FMTweet.m
 //  FMTwitterKit
 //
 //  Created by Felix Morgner on 02.02.10.

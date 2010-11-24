@@ -1,5 +1,5 @@
 //
-//  TweetFactory.m
+//  FMTweetFactory.m
 //  FMTwitterKit
 //
 //  Created by Felix Morgner on 18.02.10.

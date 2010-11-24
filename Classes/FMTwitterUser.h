@@ -1,5 +1,5 @@
 //
-//  User.h
+//  FMTwitterUser.h
 //  FMTwitterKit
 //
 //  Created by Felix Morgner on 04.02.10.
@@ -47,6 +47,7 @@
 	@private
 		id delegate;
 		FMTwitterKitProfileImageSize selectedProfileImageSize;
+		NSImage* profileImage;
 	}
 
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
@@ -56,6 +57,8 @@
 - (void) didLoadProfileImage:(NSImage*)profileImage ofSize:(FMTwitterKitProfileImageSize)size;
 - (void) processNotification:(NSNotification*)aNotification;
 - (void) setDelegate:(id)aDelegate;
+
+- (NSImage*) profileImage;
 
 @property (nonatomic, retain) NSString* name, *screenName, *location, *description;
 @property (nonatomic, retain) NSURL* profileImageURL, *url;

@@ -34,7 +34,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = BB646A3A121E6E620015EB6B /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = BB646A47121E6E620015EB6B /* FMTwitterKit */;
+			remoteGlobalIDString = BB646A47121E6E620015EB6B;
 			remoteInfo = FMTwitterKit;
 		};
 /* End PBXContainerItemProxy section */

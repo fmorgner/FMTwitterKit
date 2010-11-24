@@ -1,5 +1,5 @@
 //
-//  User.m
+//  FMTwitterUser.m
 //  FMTwitterKit
 //
 //  Created by Felix Morgner on 04.02.10.
@@ -148,6 +148,14 @@
 - (void) setDelegate:(id)aDelegate
 	{
 	delegate = aDelegate;
+	}
+
+#pragma mark -
+#pragma mark Convenience accessors:
+
+- (NSImage)profileImage
+	{
+	return nil;
 	}
 
 #pragma mark -
