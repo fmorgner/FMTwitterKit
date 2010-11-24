@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "FMTwitterKitGlobals.h"
 
 @interface FMTwitterUserProfileImageDownloadDelegate : NSObject
 	{

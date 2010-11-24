@@ -39,9 +39,11 @@
 - (void)connectionDidFinishLoading:(NSURLConnection*)connection
 	{
 	NSNotificationCenter* notificationCenter = [NSNotificationCenter defaultCenter];
-	NSDictionary* userInfoDictionary = [NSDictionary dictionaryWithObject:self.receivedData forKey:@"profileImageData"];
-	
-	NSNotification* notification = [NSNotification notificationWithName:@"FMTwitterKitProfileImageDownloadFinishedNotification" object:self userInfo:userInfoDictionary];
+	NSDictionary* userInfoDictionary = [NSDictionary dictionaryWithObject:self.receivedData forKey:[NSString stringWithUTF8String:kFMTwitterKitProfileImageData]];
+		
+	NSNotification* notification = [NSNotification notificationWithName:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification]
+																															 object:self
+																														 userInfo:userInfoDictionary];
 	
 	[notificationCenter postNotification:notification];
 	[receivedData release];
@@ -49,9 +51,9 @@
 	
 - (void)connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
 	{
-	NSException* exception = [NSException exceptionWithName:@"FMTwitterKitProfileImageDownloadConnectionException"
-																				reason:[error localizedFailureReason]
-																				userInfo:nil];
+	NSException* exception = [NSException exceptionWithName:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadConnectionException]
+																									 reason:[error localizedFailureReason]
+																								 userInfo:nil];
 	[exception raise];
 	}
 @end
