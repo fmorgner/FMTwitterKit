@@ -10,3 +10,4 @@
 #import "FMTweet.h"
 #import	"FMTweetFactory.h"
 #import "FMTwitterUser.h"
+#import "FMTwitterKitGlobals.h"

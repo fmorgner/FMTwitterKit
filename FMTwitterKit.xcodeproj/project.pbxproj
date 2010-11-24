@@ -18,6 +18,7 @@
 		BB646A61121E6E9F0015EB6B /* FMTwitterUser.m in Sources */ = {isa = PBXBuildFile; fileRef = BB646A5B121E6E9F0015EB6B /* FMTwitterUser.m */; };
 		BBAF8B8A129ABBD70082DED3 /* FMTwitterUserProfileImageDownloadDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = BB01554B129A8522007AA066 /* FMTwitterUserProfileImageDownloadDelegate.h */; };
 		BBAF8B8B129ABBDC0082DED3 /* FMTwitterUserProfileImageDownloadDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BB01554C129A8522007AA066 /* FMTwitterUserProfileImageDownloadDelegate.m */; };
+		BBE6E350129D4AF900B2677E /* FMTwitterKitGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		BB646A59121E6E9F0015EB6B /* FMTweetFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMTweetFactory.m; sourceTree = "<group>"; };
 		BB646A5A121E6E9F0015EB6B /* FMTwitterUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTwitterUser.h; sourceTree = "<group>"; };
 		BB646A5B121E6E9F0015EB6B /* FMTwitterUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMTwitterUser.m; sourceTree = "<group>"; };
+		BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTwitterKitGlobals.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				BB01F179121F2C92000558D1 /* FMTwitterKit.h */,
+				BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */,
 				BB646A4D121E6E620015EB6B /* FMTwitterKit_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -121,6 +124,7 @@
 				BB646A60121E6E9F0015EB6B /* FMTwitterUser.h in Headers */,
 				BB01F17A121F2C92000558D1 /* FMTwitterKit.h in Headers */,
 				BBAF8B8A129ABBD70082DED3 /* FMTwitterUserProfileImageDownloadDelegate.h in Headers */,
+				BBE6E350129D4AF900B2677E /* FMTwitterKitGlobals.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
