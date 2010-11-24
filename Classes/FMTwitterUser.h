@@ -55,6 +55,7 @@
 - (void) fetchProfileImageOfSize:(FMTwitterKitProfileImageSize)profileImageSize;
 - (void) didLoadProfileImage:(NSImage*)profileImage ofSize:(FMTwitterKitProfileImageSize)size;
 - (void) processNotification:(NSNotification*)aNotification;
+- (void) setDelegate:(id)aDelegate;
 
 @property (nonatomic, retain) NSString* name, *screenName, *location, *description;
 @property (nonatomic, retain) NSURL* profileImageURL, *url;

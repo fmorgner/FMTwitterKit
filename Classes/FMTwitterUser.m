@@ -135,6 +135,19 @@
 	FMTwitterUserProfileImageDownloadDelegate* downloadDelegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
 	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:downloadDelegate];
 	[downloadDelegate release];
+	
+	if(delegate)
+		{
+		[[NSNotificationCenter defaultCenter] addObserver:self
+																						 selector:@selector(processNotification:)
+																								 name:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification]
+																							 object:nil];
+		}
+	}
+
+- (void) setDelegate:(id)aDelegate
+	{
+	delegate = aDelegate;
 	}
 
 #pragma mark -
@@ -144,7 +157,7 @@
 	{
 	if([delegate respondsToSelector:@selector(twitterUser: didLoadProfileImage: ofSize:)])
 		{
-		[delegate twitterUser:self didLoadProfileImage:profileImage ofSize:size];
+		[delegate twitterUser:[self retain] didLoadProfileImage:profileImage ofSize:size];
 		}
 	else
 		{
