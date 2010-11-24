@@ -80,6 +80,23 @@ static FMTweetFactory* sharedInstance = nil;
 	return tweetsArray;
 	}
 
+- (FMTweet*) tweetFromXMLDocument:(NSXMLDocument*)aXMLDocument
+	{
+	NSArray* statusNodesArray = nil;		// The array containing the NSXMLNodes representing the fetched statuses
+	NSError* error = nil;								// The error object needed by nodesForXpath
+	
+	// Process the supplied NSXMLDocument into an array of NSXMLNode objects.
+	statusNodesArray = [aXMLDocument nodesForXPath:@"status" error:&error];
+
+	// Check if something went wrong while processing the NSXMLDocument.
+	if (error != nil)
+	{
+		NSLog(@"Error while processing statuses NSXMLDocument: %@", [error localizedDescription]);
+	}
+
+	// Return the processed tweet
+	return [FMTweet tweetWithXMLNode:[statusNodesArray objectAtIndex:0]];
+	}
 
 
 @end

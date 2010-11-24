@@ -29,5 +29,6 @@
 + (id)sharedTweetFactory;
 
 - (NSArray*) tweetsFromXMLDocument:(NSXMLDocument*)aXMLDocument;
+- (FMTweet*) tweetFromXMLDocument:(NSXMLDocument*)aXMLDocument;
 
 @end
