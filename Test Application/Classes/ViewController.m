@@ -14,57 +14,69 @@
 
 - (void) dealloc
 	{
-	[selectedTweet dealloc];
+	[selectedTweet release];
 	[super dealloc];
 	}
 
+- (void) awakeFromNib
+	{
+	}
 
-- (void)fetchTimeline:(id)sender
+- (IBAction) reloadProfileImage:(id)sender
+	{
+	if(selectedTweet)
+		{
+		profileImageView.image = [selectedTweet.user profileImageOfSize:kFMTwitterKitProfileImageSizeBigger];
+		}
+	}
+
+- (IBAction) fetchTimeline:(id)sender
 	{
 	[delegationCheckbox setEnabled:NO];
+		
+	NSError* fetchError = nil;
 	
-	NSXMLDocument* xmlDocument = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://twitter.com/statuses/public_timeline.xml"] options:0 error:nil];
+	NSXMLDocument* xmlDocument = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://twitter.com/statuses/public_timeline.xml"] options:0 error:&fetchError];
+	
+	if(fetchError)
+		{
+		NSLog(@"An error occured: %@", [fetchError localizedDescription]);
+		}
+	
 	FMTweetFactory* tweetFactory = [FMTweetFactory sharedTweetFactory];
-	NSArray* tweets = [tweetFactory tweetsFromXMLDocument:xmlDocument];
+	[self setSelectedTweet:[[tweetFactory tweetsFromXMLDocument:xmlDocument] objectAtIndex:3]];
 	[xmlDocument release];
 	
-	[self setSelectedTweet:[tweets objectAtIndex:3]];
 	
 	if(delegationCheckbox.intValue)
 		{
-		NSLog(@"using delegation");
 		[selectedTweet.user setDelegate:self];
 		}
 	else
 		{
-		NSLog(@"using notifications");
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:)
-																				name:@"FMTwitterKitProfileImageDownloadFinishedNotification" object:nil];
+		[selectedTweet.user setDelegate:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveNotification:) name:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification] object:nil];
 		}
 	
 	tweetField.stringValue = selectedTweet.text;
 	usernameField.stringValue = selectedTweet.user.name;
 	viaField.stringValue = selectedTweet.source;
-	
-	[selectedTweet.user fetchProfileImageOfSize:FMProfileImageSizeBigger];
+	[profileImageView setImageScaling:NSScaleToFit];
+	profileImageView.image = [selectedTweet.user profileImageOfSize:kFMTwitterKitProfileImageSizeBigger];
 
 	[delegationCheckbox setEnabled:YES];
 	}
 
-- (void)didReceiveNotification:(NSNotification*)aNotification
+- (void) didReceiveNotification:(NSNotification*)aNotification
 	{
-	NSData* profileImageData = [[aNotification userInfo] objectForKey:@"profileImageData"];
-	NSImage* profileImage = [[NSImage alloc] initWithData:profileImageData];
-	
-	[profileImageView setImageScaling:NSScaleToFit];
-	profileImageView.image = profileImage;
-	[profileImage release];
+	if([[aNotification name] isEqualToString:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification]])
+		{
+		profileImageView.image = selectedTweet.user.profileImage;
+		}
 	}
 
 - (void) twitterUser:(FMTwitterUser*)twitterUser didLoadProfileImage:(NSImage*)profileImage ofSize:(FMTwitterKitProfileImageSize)size
 	{
-	[profileImageView setImageScaling:NSScaleToFit];
 	profileImageView.image = profileImage;
-	[profileImage release];
 	}
 @end

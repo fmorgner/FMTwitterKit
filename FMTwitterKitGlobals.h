@@ -14,8 +14,8 @@
 
 typedef enum
 	{
-	FMProfileImageSizeNormal = 1,
-	FMProfileImageSizeSmall	 = 2,
-	FMProfileImageSizeBigger = 4,
-	FMProfileImageSizeFull   = 8
+	kFMTwitterKitProfileImageSizeNormal = 1,
+	kFMTwitterKitProfileImageSizeSmall	 = 2,
+	kFMTwitterKitProfileImageSizeBigger = 4,
+	kFMTwitterKitProfileImageSizeFull   = 8
 	} FMTwitterKitProfileImageSize;

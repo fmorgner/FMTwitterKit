@@ -21,8 +21,10 @@
 	FMTweet* selectedTweet;
 	}
 
-- (void)fetchTimeline:(id)sender;
-- (void)didReceiveNotification:(NSNotification*)aNotification;
+- (IBAction) fetchTimeline:(id)sender;
+- (IBAction) reloadProfileImage:(id)sender;
+
+- (void) didReceiveNotification:(NSNotification*)aNotification;
 
 @property(nonatomic, retain) FMTweet* selectedTweet;
 

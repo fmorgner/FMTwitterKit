@@ -45,20 +45,21 @@
 		NSUInteger		statusesCount;
 	
 	@private
-		id delegate;
-		FMTwitterKitProfileImageSize selectedProfileImageSize;
-		NSImage* profileImage;
+		id _delegate;
+		FMTwitterKitProfileImageSize _selectedProfileImageSize;
+		NSImage* _profileImage;
+		NSMutableData* _receivedData;
 	}
 
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
 + (FMTwitterUser*) userWithXMLNode:(NSXMLNode*)aXMLNode;
 
 - (void) fetchProfileImageOfSize:(FMTwitterKitProfileImageSize)profileImageSize;
-- (void) didLoadProfileImage:(NSImage*)profileImage ofSize:(FMTwitterKitProfileImageSize)size;
-- (void) processNotification:(NSNotification*)aNotification;
+- (void) didLoadProfileImage:(NSImage*)theProfileImage ofSize:(FMTwitterKitProfileImageSize)size;
 - (void) setDelegate:(id)aDelegate;
 
 - (NSImage*) profileImage;
+- (NSImage*) profileImageOfSize:(FMTwitterKitProfileImageSize)size;
 
 @property (nonatomic, retain) NSString* name, *screenName, *location, *description;
 @property (nonatomic, retain) NSURL* profileImageURL, *url;

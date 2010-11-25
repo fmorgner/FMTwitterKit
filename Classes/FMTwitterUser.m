@@ -17,7 +17,6 @@
 //
 
 #import "FMTwitterUser.h"
-#import "FMTwitterUserProfileImageDownloadDelegate.h"
 
 @implementation FMTwitterUser
 
@@ -102,6 +101,7 @@
 	[url release];
 	[joinDate release];
 	[timezone release];
+	[_profileImage release];
 	[super dealloc];
 	}
 
@@ -112,17 +112,17 @@
 	{
 	NSMutableString* profileImageURLString = [NSMutableString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.xml?size=", self.screenName];
 	
-	selectedProfileImageSize = profileImageSize;
+	_selectedProfileImageSize = profileImageSize;
 	
 	switch (profileImageSize)
 		{
-		case FMProfileImageSizeSmall:
+		case kFMTwitterKitProfileImageSizeSmall:
 			[profileImageURLString appendString:@"small"];
 			break;
-		case FMProfileImageSizeNormal:
+		case kFMTwitterKitProfileImageSizeNormal:
 			[profileImageURLString appendString:@"normal"];
 			break;
-		case FMProfileImageSizeBigger:
+		case kFMTwitterKitProfileImageSizeBigger:
 			[profileImageURLString appendString:@"bigger	"];
 			break;
 		default:
@@ -131,59 +131,108 @@
 		}
 	
 	NSURL* selectedProfileImageURL = [NSURL URLWithString:profileImageURLString];
-	
-	FMTwitterUserProfileImageDownloadDelegate* downloadDelegate = [[FMTwitterUserProfileImageDownloadDelegate alloc] init];
-	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:downloadDelegate];
-	[downloadDelegate release];
-	
-	if(delegate)
-		{
-		[[NSNotificationCenter defaultCenter] addObserver:self
-																						 selector:@selector(processNotification:)
-																								 name:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification]
-																							 object:nil];
-		}
+	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:self];
 	}
 
 - (void) setDelegate:(id)aDelegate
 	{
-	delegate = aDelegate;
+	_delegate = aDelegate;
 	}
 
 #pragma mark -
 #pragma mark Convenience accessors:
-
-- (NSImage)profileImage
+- (NSImage*)profileImage
 	{
-	return nil;
+	if (!_profileImage)
+		{
+		return [self profileImageOfSize:kFMTwitterKitProfileImageSizeNormal];
+		}
+	else
+		{
+		return _profileImage;
+		}
+	}
+
+- (NSImage*)profileImageOfSize:(FMTwitterKitProfileImageSize)size
+	{
+	if(!_profileImage)
+		{
+		NSString* imagePath = nil;
+		switch (size)
+			{
+			case kFMTwitterKitProfileImageSizeSmall:
+				imagePath = [[NSBundle bundleWithIdentifier:@"ch.felixmorgner.FMTwitterKit"] pathForResource:@"bird-small" ofType:@"png" inDirectory:@"Resources"];
+				break;
+
+			case kFMTwitterKitProfileImageSizeNormal:
+				imagePath = [[NSBundle bundleWithIdentifier:@"ch.felixmorgner.FMTwitterKit"] pathForResource:@"bird-normal" ofType:@"png" inDirectory:@"Resources"];
+				break;
+
+			case kFMTwitterKitProfileImageSizeBigger:
+				imagePath = [[NSBundle bundleWithIdentifier:@"ch.felixmorgner.FMTwitterKit"] pathForResource:@"bird-bigger" ofType:@"png" inDirectory:@"Resources"];
+				break;
+
+			default:
+				imagePath = [[NSBundle bundleWithIdentifier:@"ch.felixmorgner.FMTwitterKit"] pathForResource:@"bird-normal" ofType:@"png" inDirectory:@"Resources"];
+				break;
+			}
+		_profileImage = [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:imagePath]] autorelease];
+		[self fetchProfileImageOfSize:size];
+		}
+		
+	return _profileImage;
 	}
 
 #pragma mark -
 #pragma mark Delegation and notification processing:
 
-- (void) didLoadProfileImage:(NSImage*)profileImage ofSize:(FMTwitterKitProfileImageSize)size
+- (void) didLoadProfileImage:(NSImage*)theProfileImage ofSize:(FMTwitterKitProfileImageSize)size
 	{
-	if([delegate respondsToSelector:@selector(twitterUser: didLoadProfileImage: ofSize:)])
+	if([_delegate respondsToSelector:@selector(twitterUser: didLoadProfileImage: ofSize:)])
 		{
-		[delegate twitterUser:[self retain] didLoadProfileImage:profileImage ofSize:size];
+		[_delegate twitterUser:self didLoadProfileImage:theProfileImage ofSize:size];
 		}
 	else
 		{
-		NSException* delegateException = [NSException exceptionWithName:@"FMTwitterKitUserProfileImageDelegateException"
-																														 reason:@"The provided delegate does not respond to the 'twitterUser: didLoadProfileImage: ofSize:' selector"
-																													 userInfo:nil];
+		NSException* delegateException = [NSException exceptionWithName:@"FMTwitterKitUserProfileImageDelegateException" reason:@"The provided delegate does not respond to the 'twitterUser: didLoadProfileImage: ofSize:' selector" userInfo:nil];
 		[delegateException raise];
 		}
 	}
 
-- (void) processNotification:(NSNotification *)aNotification
+#pragma mark -
+#pragma mark NSURLConnection delegate methods:
+
+- (void) connection:(NSURLConnection*)connection didReceiveData:(NSData*)data
 	{
-	if([aNotification.name isEqualToString:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification]])
+	if(!_receivedData)
 		{
-		NSData* receivedData = [[aNotification userInfo] valueForKey:[NSString stringWithUTF8String:kFMTwitterKitProfileImageData]];
-		NSImage* profileImage = [[NSImage alloc] initWithData:receivedData];
-		[self didLoadProfileImage:profileImage ofSize:selectedProfileImageSize];
+		_receivedData = [[NSMutableData alloc] init];
 		}
+	[_receivedData appendData:data];
 	}
+
+- (void) connectionDidFinishLoading:(NSURLConnection*)connection
+	{
+	_profileImage = [[NSImage alloc] initWithData:(NSData*)_receivedData];
+	
+	if(_delegate)
+		{
+		[self didLoadProfileImage:_profileImage ofSize:_selectedProfileImageSize];
+		}
+	else
+		{
+		[[NSNotificationCenter defaultCenter] postNotificationName:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadFinishedNotification] object:nil userInfo:nil];
+		}
+
+	[_receivedData release];
+	_receivedData = nil;
+	}
+	
+- (void) connection:(NSURLConnection*)connection didFailWithError:(NSError*)error
+	{
+	NSException* exception = [NSException exceptionWithName:[NSString stringWithUTF8String:kFMTwitterKitProfileImageDownloadConnectionException] reason:[error localizedFailureReason] userInfo:nil];
+	[exception raise];
+	}
+
 
 @end
