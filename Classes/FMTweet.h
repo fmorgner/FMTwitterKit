@@ -41,10 +41,6 @@
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
 + (FMTweet*) tweetWithXMLNode:(NSXMLNode*)aXMLNode;
 
-// This method is used to strip the HTML link out of the source string
-// and create a NSURL object with the links URL.
-- (void) stripLinkFromString:(NSString**)aString intoURL:(NSURL**)aURL;
-
 @property (nonatomic, retain) NSString* text, *source, *replyScreenName;
 @property (nonatomic, retain)	FMTwitterUser* user;
 @property (nonatomic, retain) NSDate* creationDate;

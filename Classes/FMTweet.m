@@ -18,6 +18,80 @@
 
 #import "FMTweet.h"
 
+#pragma mark -
+#pragma mark 'Private' methods:
+
+@interface FMTweet (Private)
+
+// This method is used to strip the HTML link out of the source string
+// and create a NSURL object with the links URL.
+- (void) stripLinkFromString:(NSString**)aString intoURL:(NSURL**)aURL;
+
+@end
+
+@implementation FMTweet (Private)
+
+- (void) stripLinkFromString:(NSString**)aString intoURL:(NSURL**)aURL
+	{
+	
+	if(aString == nil)
+		{
+		return;
+		}
+	else
+		{
+		NSString* tagString = nil;
+		NSString* newSourceString = nil;
+			
+		NSRange firstTagRange = [*aString rangeOfString:@">"];
+		
+		if(firstTagRange.location == NSNotFound)
+			{
+			return;
+			}
+		else
+			{
+			firstTagRange.length = firstTagRange.location + 1;
+			firstTagRange.location = 0;
+			tagString = [[NSString alloc] initWithString:[*aString substringWithRange:firstTagRange]];
+			}
+		
+		NSRange secondTagRange = [*aString rangeOfString:@"<" options:NSBackwardsSearch];
+			
+		NSRange sourceStringRange = NSMakeRange(firstTagRange.length, secondTagRange.location - firstTagRange.length);
+		newSourceString = [[NSString alloc] initWithString:[*aString substringWithRange:sourceStringRange]];
+		
+		[*aString release];			
+		*aString = newSourceString;
+
+		if(aURL == nil)
+			{
+			[tagString release];
+			return;
+			}
+		else
+			{
+			NSRange hrefRange = [tagString rangeOfString:@"href=\""];
+			NSRange endQuotationmarkRange = [[tagString substringFromIndex:hrefRange.location + 6] rangeOfString:@"\""];
+			NSRange urlRange = NSMakeRange(hrefRange.location + 6, endQuotationmarkRange.location);
+
+			NSString* urlString = [tagString substringWithRange:urlRange];	
+			[tagString release];
+
+			NSURL* sourceURL = [[NSURL alloc] initWithString:urlString];
+			[*aURL release];
+			*aURL = sourceURL;
+			}
+
+		}
+		
+	}
+
+@end
+
+#pragma mark -
+#pragma mark Public methods:
+
 @implementation FMTweet
 
 @synthesize text, source, replyScreenName;
@@ -101,65 +175,6 @@
 	[descriptionDictionary setValue:[replyScreenName description] forKey:@"replyScreenName"];
 	
 	return [descriptionDictionary description];
-	}
-
-#pragma mark -
-#pragma mark Utility methods:
-
-- (void) stripLinkFromString:(NSString**)aString intoURL:(NSURL**)aURL
-	{
-	
-	if(aString == nil)
-		{
-		return;
-		}
-	else
-		{
-		NSString* tagString = nil;
-		NSString* newSourceString = nil;
-			
-		NSRange firstTagRange = [*aString rangeOfString:@">"];
-		
-		if(firstTagRange.location == NSNotFound)
-			{
-			return;
-			}
-		else
-			{
-			firstTagRange.length = firstTagRange.location + 1;
-			firstTagRange.location = 0;
-			tagString = [[NSString alloc] initWithString:[*aString substringWithRange:firstTagRange]];
-			}
-		
-		NSRange secondTagRange = [*aString rangeOfString:@"<" options:NSBackwardsSearch];
-			
-		NSRange sourceStringRange = NSMakeRange(firstTagRange.length, secondTagRange.location - firstTagRange.length);
-		newSourceString = [[NSString alloc] initWithString:[*aString substringWithRange:sourceStringRange]];
-		
-		[*aString release];			
-		*aString = newSourceString;
-
-		if(aURL == nil)
-			{
-			[tagString release];
-			return;
-			}
-		else
-			{
-			NSRange hrefRange = [tagString rangeOfString:@"href=\""];
-			NSRange endQuotationmarkRange = [[tagString substringFromIndex:hrefRange.location + 6] rangeOfString:@"\""];
-			NSRange urlRange = NSMakeRange(hrefRange.location + 6, endQuotationmarkRange.location);
-
-			NSString* urlString = [tagString substringWithRange:urlRange];	
-			[tagString release];
-
-			NSURL* sourceURL = [[NSURL alloc] initWithString:urlString];
-			[*aURL release];
-			*aURL = sourceURL;
-			}
-
-		}
-		
 	}
 
 #pragma mark -

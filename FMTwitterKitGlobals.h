@@ -10,7 +10,6 @@
 
 #define kFMTwitterKitProfileImageDownloadFinishedNotification "FMTwitterKitProfileImageDownloadFinishedNotification"
 #define kFMTwitterKitProfileImageDownloadConnectionException  "FMTwitterKitProfileImageDownloadConnectionException"
-#define kFMTwitterKitProfileImageData													"profileImageData"
 
 typedef enum
 	{

@@ -54,7 +54,6 @@
 - (id) initWithXMLNode:(NSXMLNode*)aXMLNode;
 + (FMTwitterUser*) userWithXMLNode:(NSXMLNode*)aXMLNode;
 
-- (void) fetchProfileImageOfSize:(FMTwitterKitProfileImageSize)profileImageSize;
 - (void) didLoadProfileImage:(NSImage*)theProfileImage ofSize:(FMTwitterKitProfileImageSize)size;
 - (void) setDelegate:(id)aDelegate;
 
