@@ -110,27 +110,64 @@
 
 - (void) fetchProfileImageOfSize:(FMTwitterKitProfileImageSize)profileImageSize
 	{
-	NSMutableString* profileImageURLString = [NSMutableString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.xml?size=", self.screenName];
-	
 	_selectedProfileImageSize = profileImageSize;
+	NSURL* selectedProfileImageURL = nil;
+
+	NSString* profileImageURLAbsoluteString	= [profileImageURL absoluteString];
+	NSString* filename = [profileImageURL lastPathComponent];
 	
-	switch (profileImageSize)
+	// As a first step determine where in the URL the filename is.
+	// In the second step we backwards search the filename for the occurrence of a dot '.' to determine where the file extension is.
+	// Finaly search the six characters before the dot for the string 'normal'.
+	NSRange filenameRange = [profileImageURLAbsoluteString rangeOfString:filename];
+	NSRange dotRange = [filename rangeOfString:@"." options:NSBackwardsSearch];
+	NSRange searchRange = NSMakeRange(dotRange.location - 6, 6);
+	NSRange normalRange = [filename rangeOfString:@"normal" options:0 range:searchRange];
+
+	// If the above check succeeded go and generate the url of the profile image ourselfs.
+	// This saves us an API call.
+	if(normalRange.location != NSNotFound)
 		{
-		case kFMTwitterKitProfileImageSizeSmall:
-			[profileImageURLString appendString:@"small"];
-			break;
-		case kFMTwitterKitProfileImageSizeNormal:
-			[profileImageURLString appendString:@"normal"];
-			break;
-		case kFMTwitterKitProfileImageSizeBigger:
-			[profileImageURLString appendString:@"bigger	"];
-			break;
-		default:
-			NSLog(@"Invalid parameter '%i' supplied for 'profileImageSize'. Defaulting to normal size.", (int)profileImageSize);
-			break;
+		NSRange replaceRange = NSMakeRange(filenameRange.location + normalRange.location, normalRange.length);
+		switch (profileImageSize)
+			{
+			case kFMTwitterKitProfileImageSizeSmall:
+					profileImageURLAbsoluteString = [profileImageURLAbsoluteString stringByReplacingCharactersInRange:replaceRange withString:@"small"];
+				break;
+			case kFMTwitterKitProfileImageSizeNormal:
+					// There is nothing do to for this case since if this point is reached the profile image URL is the URL for the 'normal' sized image.
+				break;
+			case kFMTwitterKitProfileImageSizeBigger:
+					profileImageURLAbsoluteString = [profileImageURLAbsoluteString stringByReplacingCharactersInRange:replaceRange withString:@"bigger"];
+				break;
+			default:
+				NSLog(@"Invalid parameter '%i' supplied for 'profileImageSize'. Defaulting to normal size.", (int)profileImageSize);
+				break;
+			}
+		selectedProfileImageURL = [NSURL URLWithString:profileImageURLAbsoluteString];
 		}
-	
-	NSURL* selectedProfileImageURL = [NSURL URLWithString:profileImageURLString];
+	else
+		{
+		NSMutableString* profileImageURLString = [NSMutableString stringWithFormat:@"http://api.twitter.com/1/users/profile_image/%@.xml?size=", self.screenName];
+
+		switch (profileImageSize)
+			{
+			case kFMTwitterKitProfileImageSizeSmall:
+				[profileImageURLString appendString:@"small"];
+				break;
+			case kFMTwitterKitProfileImageSizeNormal:
+				[profileImageURLString appendString:@"normal"];
+				break;
+			case kFMTwitterKitProfileImageSizeBigger:
+				[profileImageURLString appendString:@"bigger	"];
+				break;
+			default:
+				NSLog(@"Invalid parameter '%i' supplied for 'profileImageSize'. Defaulting to normal size.", (int)profileImageSize);
+				break;
+			}
+		selectedProfileImageURL = [NSURL URLWithString:profileImageURLString];
+		}
+
 	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:selectedProfileImageURL] delegate:self];
 	}
 
