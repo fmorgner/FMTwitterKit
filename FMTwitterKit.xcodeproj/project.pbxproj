@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		BB01F17A121F2C92000558D1 /* FMTwitterKit.h in Headers */ = {isa = PBXBuildFile; fileRef = BB01F179121F2C92000558D1 /* FMTwitterKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BB646A4B121E6E620015EB6B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB646A4A121E6E620015EB6B /* Cocoa.framework */; };
 		BB646A50121E6E620015EB6B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB646A4E121E6E620015EB6B /* InfoPlist.strings */; };
 		BB646A5C121E6E9F0015EB6B /* FMTweet.h in Headers */ = {isa = PBXBuildFile; fileRef = BB646A56121E6E9F0015EB6B /* FMTweet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BB646A5D121E6E9F0015EB6B /* FMTweet.m in Sources */ = {isa = PBXBuildFile; fileRef = BB646A57121E6E9F0015EB6B /* FMTweet.m */; };
@@ -19,12 +18,12 @@
 		BB89AC19129DB98F00750089 /* bird-bigger.png in Resources */ = {isa = PBXBuildFile; fileRef = BB89AC16129DB98F00750089 /* bird-bigger.png */; };
 		BB89AC1A129DB98F00750089 /* bird-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = BB89AC17129DB98F00750089 /* bird-normal.png */; };
 		BB89AC1B129DB98F00750089 /* bird-small.png in Resources */ = {isa = PBXBuildFile; fileRef = BB89AC18129DB98F00750089 /* bird-small.png */; };
+		BB906F81129F32E800FF3AB9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB906F80129F32E800FF3AB9 /* Cocoa.framework */; };
 		BBE6E350129D4AF900B2677E /* FMTwitterKitGlobals.h in Headers */ = {isa = PBXBuildFile; fileRef = BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BBE6E569129D5E0A00B2677E /* TwitterKitTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE6E55A129D5E0700B2677E /* TwitterKitTestAppDelegate.m */; };
 		BBE6E56A129D5E0A00B2677E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE6E55C129D5E0700B2677E /* ViewController.m */; };
 		BBE6E56B129D5E0A00B2677E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE6E55F129D5E0700B2677E /* main.m */; };
 		BBE6E6CF129D5ED800B2677E /* FMTwitterKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB646A48121E6E620015EB6B /* FMTwitterKit.framework */; };
-		BBE6E6D2129D5EE000B2677E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB646A4A121E6E620015EB6B /* Cocoa.framework */; };
 		BBE6E6D7129D5F1500B2677E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE6E6D5129D5F1500B2677E /* MainMenu.xib */; };
 		BBE6E6E5129D5F4600B2677E /* FMTwitterKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BB646A48121E6E620015EB6B /* FMTwitterKit.framework */; };
 		BBE6E747129D622C00B2677E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BBE6E746129D622C00B2677E /* InfoPlist.strings */; };
@@ -56,7 +55,6 @@
 /* Begin PBXFileReference section */
 		BB01F179121F2C92000558D1 /* FMTwitterKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTwitterKit.h; sourceTree = "<group>"; };
 		BB646A48121E6E620015EB6B /* FMTwitterKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMTwitterKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BB646A4A121E6E620015EB6B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BB646A4C121E6E620015EB6B /* FMTwitterKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FMTwitterKit-Info.plist"; sourceTree = "<group>"; };
 		BB646A4D121E6E620015EB6B /* FMTwitterKit_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMTwitterKit_Prefix.pch; sourceTree = "<group>"; };
 		BB646A4F121E6E620015EB6B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -69,6 +67,7 @@
 		BB89AC16129DB98F00750089 /* bird-bigger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird-bigger.png"; sourceTree = "<group>"; };
 		BB89AC17129DB98F00750089 /* bird-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird-normal.png"; sourceTree = "<group>"; };
 		BB89AC18129DB98F00750089 /* bird-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bird-small.png"; sourceTree = "<group>"; };
+		BB906F80129F32E800FF3AB9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTwitterKitGlobals.h; sourceTree = "<group>"; };
 		BBE6E537129D5D8800B2677E /* TwitterKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwitterKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBE6E559129D5E0700B2677E /* TwitterKitTestAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterKitTestAppDelegate.h; sourceTree = "<group>"; };
@@ -87,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB646A4B121E6E620015EB6B /* Cocoa.framework in Frameworks */,
+				BB906F81129F32E800FF3AB9 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,7 +95,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BBE6E6CF129D5ED800B2677E /* FMTwitterKit.framework in Frameworks */,
-				BBE6E6D2129D5EE000B2677E /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,6 +104,7 @@
 		BB646A38121E6E620015EB6B = {
 			isa = PBXGroup;
 			children = (
+				BBE395FE12A7E36200D2AE12 /* Headers */,
 				BB646A3F121E6E620015EB6B /* Classes */,
 				BB646A40121E6E620015EB6B /* Other Sources */,
 				BB646A41121E6E620015EB6B /* Resources */,
@@ -118,21 +117,17 @@
 		BB646A3F121E6E620015EB6B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				BB646A58121E6E9F0015EB6B /* FMTweetFactory.h */,
 				BB646A59121E6E9F0015EB6B /* FMTweetFactory.m */,
-				BB646A56121E6E9F0015EB6B /* FMTweet.h */,
 				BB646A57121E6E9F0015EB6B /* FMTweet.m */,
-				BB646A5A121E6E9F0015EB6B /* FMTwitterUser.h */,
 				BB646A5B121E6E9F0015EB6B /* FMTwitterUser.m */,
 			);
-			path = Classes;
+			name = Classes;
+			path = Source;
 			sourceTree = "<group>";
 		};
 		BB646A40121E6E620015EB6B /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				BB01F179121F2C92000558D1 /* FMTwitterKit.h */,
-				BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */,
 				BB646A4D121E6E620015EB6B /* FMTwitterKit_Prefix.pch */,
 			);
 			name = "Other Sources";
@@ -151,7 +146,7 @@
 		BB646A42121E6E620015EB6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BB646A4A121E6E620015EB6B /* Cocoa.framework */,
+				BB906F80129F32E800FF3AB9 /* Cocoa.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -173,6 +168,18 @@
 				BB89AC18129DB98F00750089 /* bird-small.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		BBE395FE12A7E36200D2AE12 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				BB01F179121F2C92000558D1 /* FMTwitterKit.h */,
+				BBE6E34F129D4AF900B2677E /* FMTwitterKitGlobals.h */,
+				BB646A58121E6E9F0015EB6B /* FMTweetFactory.h */,
+				BB646A56121E6E9F0015EB6B /* FMTweet.h */,
+				BB646A5A121E6E9F0015EB6B /* FMTwitterUser.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 		BBE6E53D129D5DA300B2677E /* Test Application */ = {
