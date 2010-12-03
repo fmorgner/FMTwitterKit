@@ -34,7 +34,7 @@
 - (void) stripLinkFromString:(NSString**)aString intoURL:(NSURL**)aURL
 	{
 	
-	if(aString == nil)
+	if(aString == 0)
 		{
 		return;
 		}
@@ -64,7 +64,7 @@
 		[*aString release];			
 		*aString = newSourceString;
 
-		if(aURL == nil)
+		if(aURL == 0)
 			{
 			[tagString release];
 			return;
@@ -107,20 +107,20 @@
 	{
 	if((self = [super init]))
 		{
-		[self setText:						[[[aXMLNode objectsForXQuery:@"for $p in text return $p" error:nil] objectAtIndex:0] stringValue]];
-		[self setSource:					[[[aXMLNode objectsForXQuery:@"for $p in source return $p" error:nil] objectAtIndex:0] stringValue]];
-		[self setReplyScreenName:	[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_screen_name return $p" error:nil] objectAtIndex:0] stringValue]];
+		[self setText:						[[[aXMLNode objectsForXQuery:@"for $p in text return $p" error:0] objectAtIndex:0] stringValue]];
+		[self setSource:					[[[aXMLNode objectsForXQuery:@"for $p in source return $p" error:0] objectAtIndex:0] stringValue]];
+		[self setReplyScreenName:	[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_screen_name return $p" error:0] objectAtIndex:0] stringValue]];
 
-		[self setUser:						[FMTwitterUser userWithXMLNode:[[aXMLNode nodesForXPath:@"user" error:nil] objectAtIndex:0]]];
+		[self setUser:						[FMTwitterUser userWithXMLNode:[[aXMLNode nodesForXPath:@"user" error:0] objectAtIndex:0]]];
 
-		[self setCreationDate:		[NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:nil] objectAtIndex:0] stringValue]]];
+		[self setCreationDate:		[NSDate dateWithNaturalLanguageString:[[[aXMLNode objectsForXQuery:@"for $p in created_at return $p" error:0] objectAtIndex:0] stringValue]]];
 
-		[self setUniqueID:				[[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:nil] objectAtIndex:0] stringValue] longLongValue]];		
-		[self setReplyStatusID:		[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_status_id return $p" error:nil] objectAtIndex:0] stringValue] longLongValue]];
-		[self setReplyUserID:			[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_user_id return $p" error:nil] objectAtIndex:0] stringValue] longLongValue]];
+		[self setUniqueID:				[[[[aXMLNode objectsForXQuery:@"for $p in id return $p" error:0] objectAtIndex:0] stringValue] longLongValue]];		
+		[self setReplyStatusID:		[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_status_id return $p" error:0] objectAtIndex:0] stringValue] longLongValue]];
+		[self setReplyUserID:			[[[[aXMLNode objectsForXQuery:@"for $p in in_reply_to_user_id return $p" error:0] objectAtIndex:0] stringValue] longLongValue]];
 
-		[self setIsTruncated:			[[[[aXMLNode objectsForXQuery:@"for $p in truncated return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];
-		[self setIsFavourite:			[[[[aXMLNode objectsForXQuery:@"for $p in favorited return $p" error:nil] objectAtIndex:0] stringValue] boolValue]];
+		[self setIsTruncated:			[[[[aXMLNode objectsForXQuery:@"for $p in truncated return $p" error:0] objectAtIndex:0] stringValue] boolValue]];
+		[self setIsFavourite:			[[[[aXMLNode objectsForXQuery:@"for $p in favorited return $p" error:0] objectAtIndex:0] stringValue] boolValue]];
 		}
 
 	return self;
@@ -189,7 +189,7 @@
 
 	source = [aString retain];	
 
-	[self stripLinkFromString:&source intoURL:nil];
+	[self stripLinkFromString:&source intoURL:0];
 	}
 
 @end

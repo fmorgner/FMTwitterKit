@@ -16,7 +16,8 @@
 //  GNU General Public License for more details.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
 #import "FMTwitterKitGlobals.h"
 
 @interface FMTwitterUser : NSObject <NSCopying>
